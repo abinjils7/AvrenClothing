@@ -1,0 +1,122 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+import { Product } from '@/types';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
+
+const MOCK_FEATURED: Product[] = [
+  {
+    _id: 'f1', name: 'Heavyweight Essential Tee', slug: 'heavyweight-essential-tee',
+    description: '280gsm heavyweight cotton t-shirt.', price: 2490, compareAtPrice: 2490,
+    category: { _id: 'c1', name: 'T-Shirts', slug: 't-shirts', description: '', image: '' },
+    brand: 'AVREN', averageRating: 4.9, numReviews: 87, featured: true, isActive: true,
+    variants: [{ _id: 'v1', size: 'M', color: 'Black', colorHex: '#0a0a0a', stock: 15 }],
+    images: [
+      { _id: 'i1', url: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=780&auto=format&fit=crop', isMain: true },
+      { _id: 'i1b', url: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=830&auto=format&fit=crop', isMain: false },
+    ],
+  },
+  {
+    _id: 'f2', name: 'Oxford Button-Down Shirt', slug: 'oxford-button-down-shirt',
+    description: 'Premium Egyptian cotton oxford.', price: 4990, compareAtPrice: 6500,
+    category: { _id: 'c2', name: 'Shirts', slug: 'shirts', description: '', image: '' },
+    brand: 'AVREN', averageRating: 4.7, numReviews: 34, featured: true, isActive: true,
+    discountPercentage: 23,
+    variants: [{ _id: 'v2', size: 'M', color: 'White', colorHex: '#fff', stock: 12 }],
+    images: [
+      { _id: 'i2', url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=776&auto=format&fit=crop', isMain: true },
+      { _id: 'i2b', url: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=774&auto=format&fit=crop', isMain: false },
+    ],
+  },
+  {
+    _id: 'f3', name: 'Oversized Graphic Tee', slug: 'oversized-graphic-tee',
+    description: 'Heavy-cotton oversized tee.', price: 2990, compareAtPrice: 3500,
+    category: { _id: 'c1', name: 'T-Shirts', slug: 't-shirts', description: '', image: '' },
+    brand: 'AVREN', averageRating: 4.6, numReviews: 53, featured: true, isActive: true,
+    discountPercentage: 14,
+    variants: [{ _id: 'v3', size: 'M', color: 'Off-White', colorHex: '#f5f0eb', stock: 18 }],
+    images: [
+      { _id: 'i3', url: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?q=80&w=774&auto=format&fit=crop', isMain: true },
+      { _id: 'i3b', url: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=764&auto=format&fit=crop', isMain: false },
+    ],
+  },
+
+];
+
+export function NewArrivals() {
+  const { data, isLoading } = useQuery({
+    queryKey: ['featured-products'],
+    queryFn: async () => {
+      try {
+        const res = await api.get('/products/featured?limit=4');
+        const products = res.data.data.products as Product[];
+        return products.length > 0 ? products : MOCK_FEATURED;
+      } catch {
+        return MOCK_FEATURED;
+      }
+    },
+  });
+
+  return (
+    <section className="py-24 bg-background">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="mb-12 flex justify-between items-end border-b border-border pb-6">
+          <h2 className="font-heading text-4xl uppercase tracking-tighter">New Arrivals</h2>
+          <Link href="/products" className="hidden md:block uppercase text-sm tracking-wider font-medium hover:text-accent">
+            Shop All
+          </Link>
+        </div>
+
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((n) => (
+              <div key={n} className="space-y-4">
+                <div className="aspect-[3/4] bg-muted animate-pulse rounded-md" />
+                <div className="h-4 w-2/3 bg-muted animate-pulse" />
+                <div className="h-4 w-1/3 bg-muted animate-pulse" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {data?.map((product, i) => (
+              <motion.div
+                key={product._id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="group cursor-pointer"
+              >
+                <Link href={`/products/${product.slug}`}>
+                  <div className="relative aspect-[3/4] mb-4 bg-muted overflow-hidden">
+                    {/* Main Image */}
+                    <img
+                      src={product.images[0]?.url || 'https://via.placeholder.com/400x500'}
+                      alt={product.images[0]?.alt || product.name}
+                      className="object-cover w-full h-full"
+                    />
+
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-xs text-muted-foreground uppercase tracking-widest">{product.category.name}</p>
+                    <h3 className="font-medium text-base truncate">{product.name}</h3>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-sm">₹{product.price}</p>
+                      {product.compareAtPrice > product.price && (
+                        <p className="text-muted-foreground line-through text-xs">₹{product.compareAtPrice}</p>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
