@@ -21,8 +21,14 @@ const MENUS = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const pathname = usePathname();
-  const cartItemsCount = useCartStore((state) => state.TotalItems);
+  const cartItemsCount = useCartStore((state) => state.items.reduce((total, item) => total + item.quantity, 0));
   const { isAuthenticated } = useAuthStore();
+  
+  // Prevent hydration mismatch
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isHome = pathname === '/';
 
@@ -113,7 +119,7 @@ export function Navbar() {
           <Link href="/cart">
             <Button variant="ghost" size="icon" className="rounded-full relative">
               <ShoppingBag className="h-5 w-5" />
-              {cartItemsCount > 0 && (
+              {mounted && cartItemsCount > 0 && (
                 <span className="absolute top-0 right-0 h-4 w-4 bg-accent text-accent-foreground text-[10px] font-bold flex items-center justify-center rounded-full">
                   {cartItemsCount}
                 </span>

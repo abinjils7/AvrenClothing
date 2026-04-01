@@ -6,9 +6,48 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, TotalPrice, clearCart } = useCartStore();
+  const { items, removeItem, updateQuantity, clearCart } = useCartStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cartSubtotal = items.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+  const handleWhatsAppCheckout = () => {
+    // ⚠️ IMPORTANT: Replace this with your actual WhatsApp number with country code
+    const shopWhatsAppNumber = "7012963729";
+
+    let message = "Hello  I would like to place an order from my cart:\n\n";
+
+    items.forEach((item, index) => {
+      message += `${index + 1}. *${item.name}*\n`;
+      message += `   Variant: ${item.color} - ${item.size}\n`;
+      message += `   Quantity: ${item.quantity}\n`;
+      message += `   Price: ₹${item.price * item.quantity}\n\n`;
+    });
+
+    const tax = Math.round(cartSubtotal * 0.18);
+    const finalTotal = cartSubtotal + tax;
+
+    message += `*Cart Subtotal:* ₹${cartSubtotal}\n`;
+    message += `*Taxes & Fees (18%):* ₹${tax}\n`;
+    message += `*Total Payable:* ₹${finalTotal}\n\n`;
+    message += `Please confirm my order and share the payment details.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${shopWhatsAppNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+  };
+
+  if (!mounted) {
+    return null; // Prevent hydration error where SSR renders empty cart before Zustand loads localStorage
+  }
 
   if (items.length === 0) {
     return (
@@ -39,7 +78,7 @@ export default function CartPage() {
             </div>
 
             {items.map((item, i) => (
-              <motion.div 
+              <motion.div
                 key={`${item.product._id}-${item.size}-${item.color}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -56,7 +95,7 @@ export default function CartPage() {
                       <p>Color: {item.color}</p>
                       <p>Size: {item.size}</p>
                     </div>
-                    <button 
+                    <button
                       onClick={() => removeItem(item.product._id, item.size, item.color)}
                       className="text-xs text-muted-foreground flex items-center gap-1 hover:text-destructive w-fit transition-colors mt-2"
                     >
@@ -66,21 +105,21 @@ export default function CartPage() {
                 </div>
 
                 <div className="col-span-1 md:col-span-2 mt-4 md:mt-0 md:text-center text-sm font-medium">
-                   <span className="md:hidden text-muted-foreground text-xs uppercase mr-2">Price:</span>
-                   ₹{item.price}
+                  <span className="md:hidden text-muted-foreground text-xs uppercase mr-2">Price:</span>
+                  ₹{item.price}
                 </div>
 
                 <div className="col-span-1 md:col-span-2 mt-2 md:mt-0 flex md:justify-center">
                   <div className="flex items-center border border-border h-10 w-24">
-                    <button 
-                      onClick={() => updateQuantity(item.product._id, item.size, item.color, item.quantity - 1)} 
+                    <button
+                      onClick={() => updateQuantity(item.product._id, item.size, item.color, item.quantity - 1)}
                       className="flex-1 flex justify-center hover:bg-muted transition-colors h-full items-center"
                     >
                       <Minus className="h-3 w-3" />
                     </button>
                     <span className="w-8 text-center font-medium font-mono text-sm">{item.quantity}</span>
-                    <button 
-                      onClick={() => updateQuantity(item.product._id, item.size, item.color, item.quantity + 1)} 
+                    <button
+                      onClick={() => updateQuantity(item.product._id, item.size, item.color, item.quantity + 1)}
                       className="flex-1 flex justify-center hover:bg-muted transition-colors h-full items-center"
                     >
                       <Plus className="h-3 w-3" />
@@ -89,15 +128,15 @@ export default function CartPage() {
                 </div>
 
                 <div className="col-span-1 md:col-span-2 mt-2 md:mt-0 md:text-right font-bold text-base">
-                   <span className="md:hidden text-muted-foreground text-xs uppercase mr-2 font-normal">Total:</span>
-                   ₹{item.price * item.quantity}
+                  <span className="md:hidden text-muted-foreground text-xs uppercase mr-2 font-normal">Total:</span>
+                  ₹{item.price * item.quantity}
                 </div>
               </motion.div>
             ))}
 
             <div className="flex justify-between items-center pt-6">
               <Link href="/products" className={cn(buttonVariants({ variant: "link" }), "p-0 h-auto text-muted-foreground hover:text-foreground hover:no-underline flex items-center gap-2")}>
-                 <ArrowRight className="h-4 w-4 rotate-180" /> Continue Shopping
+                <ArrowRight className="h-4 w-4 rotate-180" /> Continue Shopping
               </Link>
               <Button variant="ghost" onClick={clearCart} className="text-destructive hover:bg-destructive/10 hover:text-destructive text-sm uppercase">
                 Clear Cart
@@ -109,11 +148,11 @@ export default function CartPage() {
           <div className="lg:col-span-4">
             <div className="bg-muted p-8 sticky top-32">
               <h2 className="font-heading text-2xl uppercase tracking-tighter mb-6 border-b border-border/10 pb-4">Order Summary</h2>
-              
+
               <div className="space-y-4 mb-8 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal ({items.length} items)</span>
-                  <span className="font-medium">₹{TotalPrice}</span>
+                  <span className="font-medium">₹{cartSubtotal}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Shipping</span>
@@ -121,19 +160,19 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Taxes</span>
-                  <span className="font-medium">₹{Math.round(TotalPrice * 0.18)}</span>
+                  <span className="font-medium">₹{Math.round(cartSubtotal * 0.18)}</span>
                 </div>
               </div>
 
               <div className="flex justify-between items-center border-t border-border/10 pt-6 mb-8 text-lg font-bold">
                 <span className="uppercase tracking-wider">Total</span>
-                <span>₹{TotalPrice + Math.round(TotalPrice * 0.18)}</span>
+                <span>₹{cartSubtotal + Math.round(cartSubtotal * 0.18)}</span>
               </div>
 
-              <Link href="/checkout" className={cn(buttonVariants(), "w-full h-14 rounded-none uppercase tracking-widest text-sm bg-foreground text-background hover:bg-foreground/90 font-bold flex items-center justify-between px-6 group")}>
-                  <span>Checkout</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              <button onClick={handleWhatsAppCheckout} className={cn(buttonVariants(), "w-full h-14 rounded-none uppercase tracking-widest text-sm bg-[#25D366] text-white hover:bg-[#128C7E] font-bold flex items-center justify-between px-6 group transition-colors")}>
+                <span>Checkout via WhatsApp</span>
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </button>
 
               <div className="mt-6 flex justify-center gap-4 text-muted-foreground">
                 {/* Icons placeholder for secure checkout */}

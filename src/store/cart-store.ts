@@ -8,8 +8,6 @@ interface CartState {
   removeItem: (productId: string, size: string, color: string) => void;
   updateQuantity: (productId: string, size: string, color: string, quantity: number) => void;
   clearCart: () => void;
-  TotalItems: number;
-  TotalPrice: number;
 }
 
 export const useCartStore = create<CartState>()(
@@ -47,12 +45,6 @@ export const useCartStore = create<CartState>()(
           ),
         })),
       clearCart: () => set({ items: [] }),
-      get TotalItems() {
-        return get().items.reduce((total, item) => total + item.quantity, 0);
-      },
-      get TotalPrice() {
-        return get().items.reduce((total, item) => total + item.price * item.quantity, 0);
-      },
     }),
     {
       name: 'avren-cart',

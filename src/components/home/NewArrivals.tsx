@@ -5,7 +5,8 @@ import api from '@/lib/api';
 import { Product } from '@/types';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
+import { Star, ShoppingBag } from 'lucide-react';
+import { useCartStore } from '@/store/cart-store';
 
 const MOCK_FEATURED: Product[] = [
   {
@@ -47,6 +48,39 @@ const MOCK_FEATURED: Product[] = [
 ];
 
 export function NewArrivals() {
+  const { addItem } = useCartStore();
+
+  const handleQuickAdd = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const defaultVariant = product.variants?.find(v => v.stock > 0) || product.variants?.[0];
+    
+    if (defaultVariant) {
+      addItem({
+        product: product,
+        name: product.name,
+        image: product.images[0]?.url || '',
+        price: product.price,
+        size: defaultVariant.size,
+        color: defaultVariant.color,
+        quantity: 1,
+      });
+      alert('Added to cart!');
+    } else {
+      addItem({
+        product: product,
+        name: product.name,
+        image: product.images[0]?.url || '',
+        price: product.price,
+        size: 'OS',
+        color: 'Default',
+        quantity: 1,
+      });
+      alert('Added to cart!');
+    }
+  };
+
   const { data, isLoading } = useQuery({
     queryKey: ['featured-products'],
     queryFn: async () => {
@@ -97,9 +131,15 @@ export function NewArrivals() {
                     <img
                       src={product.images[0]?.url || 'https://via.placeholder.com/400x500'}
                       alt={product.images[0]?.alt || product.name}
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                     />
-
+                    
+                    <button 
+                      onClick={(e) => handleQuickAdd(e, product)}
+                      className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-sm text-foreground py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium text-sm flex items-center justify-center gap-2 hover:bg-foreground hover:text-background rounded-sm z-10"
+                    >
+                      <ShoppingBag className="h-4 w-4" /> Quick Add
+                    </button>
                   </div>
                   <div className="space-y-1">
                     <p className="text-xs text-muted-foreground uppercase tracking-widest">{product.category.name}</p>
