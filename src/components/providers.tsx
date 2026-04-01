@@ -12,7 +12,22 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         {children}
-        <Toaster closeButton position="top-right" expand={false} richColors />
+        <Toaster 
+          closeButton 
+          position="top-right" 
+          expand={false} 
+          theme="light"
+          toastOptions={{
+            style: {
+              background: '#FFFFFF',
+              color: '#000000',
+              border: '1px solid #E5E5E5',
+              borderRadius: '0px', // Rectangular look
+              fontFamily: 'inherit',
+            },
+            className: 'font-medium uppercase tracking-wider text-xs',
+          }} 
+        />
       </ThemeProvider>
     </QueryClientProvider>
   );
