@@ -6,6 +6,7 @@ import { Product } from '@/types';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Star, ShoppingBag } from 'lucide-react';
+import { toast } from 'sonner';
 import { useCartStore } from '@/store/cart-store';
 
 const MOCK_FEATURED: Product[] = [
@@ -66,7 +67,7 @@ export function NewArrivals() {
         color: defaultVariant.color,
         quantity: 1,
       });
-      alert('Added to cart!');
+      toast.success(`${product.name} added to cart!`);
     } else {
       addItem({
         product: product,
@@ -77,7 +78,7 @@ export function NewArrivals() {
         color: 'Default',
         quantity: 1,
       });
-      alert('Added to cart!');
+      toast.success(`${product.name} added to cart!`);
     }
   };
 

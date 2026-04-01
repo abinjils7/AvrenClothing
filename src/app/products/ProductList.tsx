@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Search, SlidersHorizontal, Star, ShoppingBag } from 'lucide-react';
+import { toast } from 'sonner';
 import api from '@/lib/api';
 import { useCartStore } from '@/store/cart-store';
 import { Product, Category } from '@/types';
@@ -239,7 +240,7 @@ export default function ProductList() {
         color: defaultVariant.color,
         quantity: 1,
       });
-      alert('Added to cart!');
+      toast.success(`${product.name} added to cart!`);
     } else {
       addItem({
         product: product,
@@ -250,7 +251,7 @@ export default function ProductList() {
         color: 'Default',
         quantity: 1,
       });
-      alert('Added to cart!');
+      toast.success(`${product.name} added to cart!`);
     }
   };
 

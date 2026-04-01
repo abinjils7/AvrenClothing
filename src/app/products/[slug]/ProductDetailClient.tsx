@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Heart, Minus, Plus, ShoppingBag, Star, Share2 } from 'lucide-react';
+import { toast } from 'sonner';
 import Link from 'next/link';
 
 import api from '@/lib/api';
@@ -50,12 +51,12 @@ export default function ProductDetailClient({ slug }: { slug: string }) {
   const handleAddToCart = () => {
     if (!product) return;
     if (!selectedSize) {
-      alert('Please select a size');
+      toast.error('Please select a size');
       return;
     }
 
     if (selectedVariant && selectedVariant.stock < quantity) {
-      alert('Not enough stock available');
+      toast.error('Not enough stock available');
       return;
     }
 
@@ -74,17 +75,19 @@ export default function ProductDetailClient({ slug }: { slug: string }) {
     setTimeout(() => {
       setIsAdding(false);
       // Optional: open cart drawer here
-      alert('Added to cart!');
+      toast.success(`${product.name} added to cart!`, {
+        description: `${selectedColor} / ${selectedSize} (x${quantity})`,
+      });
     }, 600);
   };
 
   const handleWishlist = async () => {
-    if (!isAuthenticated) return alert('Please login to add to wishlist');
+    if (!isAuthenticated) return toast.error('Please login to add to wishlist');
     try {
       await api.post(`/wishlist/${product?._id}`);
-      alert('Wishlist updated!');
+      toast.success('Wishlist updated!');
     } catch (e) {
-      alert('Error updating wishlist');
+      toast.error('Error updating wishlist');
     }
   };
 

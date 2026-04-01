@@ -7,9 +7,17 @@ import Link from 'next/link';
 import { Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, clearCart } = useCartStore();
+  const { items, removeItem, updateQuantity, updateSize, clearCart } = useCartStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -91,12 +99,49 @@ export default function CartPage() {
                   </div>
                   <div className="flex flex-col justify-center space-y-2">
                     <h3 className="font-heading font-medium uppercase tracking-wide text-sm">{item.name}</h3>
-                    <div className="text-xs text-muted-foreground space-y-1">
-                      <p>Color: {item.color}</p>
-                      <p>Size: {item.size}</p>
+                    <div className="text-xs text-muted-foreground space-y-2">
+                      <p className="flex items-center gap-2">
+                        <span className="w-12">Color:</span> 
+                        <span className="text-foreground font-medium">{item.color}</span>
+                        {/* We could add color selection here too, but size was specifically requested */}
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <span className="w-12">Size:</span> 
+                        <DropdownMenu>
+                          <DropdownMenuTrigger className="flex items-center gap-1 text-foreground font-medium hover:text-accent transition-colors outline-none cursor-pointer">
+                            {item.size} <ChevronDown className="h-3 w-3" />
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="min-w-[80px]">
+                            {item.product.variants
+                              .filter(v => v.color === item.color)
+                              .map(variant => (
+                                <DropdownMenuItem 
+                                  key={variant._id}
+                                  disabled={variant.stock === 0}
+                                  onClick={() => {
+                                    if (variant.size !== item.size) {
+                                      updateSize(item.product._id, item.size, item.color, variant.size);
+                                      toast.success(`Size updated to ${variant.size}`);
+                                    }
+                                  }}
+                                  className={cn(
+                                    "flex justify-between items-center",
+                                    variant.size === item.size && "font-bold text-accent"
+                                  )}
+                                >
+                                  {variant.size}
+                                  {variant.stock === 0 && <span className="text-[10px] text-muted-foreground">(Out of Stock)</span>}
+                                </DropdownMenuItem>
+                              ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
                     </div>
                     <button
-                      onClick={() => removeItem(item.product._id, item.size, item.color)}
+                      onClick={() => {
+                        removeItem(item.product._id, item.size, item.color);
+                        toast.success('Removed from cart');
+                      }}
                       className="text-xs text-muted-foreground flex items-center gap-1 hover:text-destructive w-fit transition-colors mt-2"
                     >
                       <Trash2 className="h-3 w-3" /> Remove
@@ -138,7 +183,14 @@ export default function CartPage() {
               <Link href="/products" className={cn(buttonVariants({ variant: "link" }), "p-0 h-auto text-muted-foreground hover:text-foreground hover:no-underline flex items-center gap-2")}>
                 <ArrowRight className="h-4 w-4 rotate-180" /> Continue Shopping
               </Link>
-              <Button variant="ghost" onClick={clearCart} className="text-destructive hover:bg-destructive/10 hover:text-destructive text-sm uppercase">
+              <Button 
+                variant="ghost" 
+                onClick={() => {
+                  clearCart();
+                  toast.success('Cart cleared');
+                }} 
+                className="text-destructive hover:bg-destructive/10 hover:text-destructive text-sm uppercase"
+              >
                 Clear Cart
               </Button>
             </div>
