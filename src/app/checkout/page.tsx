@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -14,7 +14,14 @@ import { Input } from '@/components/ui/input';
 export default function CheckoutPage() {
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
-  const { items, TotalPrice, clearCart } = useCartStore();
+  const { items, clearCart } = useCartStore();
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cartSubtotal = items.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   const [shippingAddress, setShippingAddress] = useState({
     fullName: '',
@@ -34,6 +41,8 @@ export default function CheckoutPage() {
     return null;
   }
   
+  if (!mounted && typeof window !== 'undefined') return null;
+
   if (items.length === 0 && typeof window !== 'undefined') {
     router.push('/cart');
     return null;
@@ -64,9 +73,9 @@ export default function CheckoutPage() {
     }
   };
 
-  const tax = Math.round(TotalPrice * 0.18);
-  const shipping = TotalPrice > 2000 ? 0 : 199;
-  const total = TotalPrice + tax + shipping;
+  const tax = Math.round(cartSubtotal * 0.18);
+  const shipping = cartSubtotal > 2000 ? 0 : 199;
+  const total = cartSubtotal + tax + shipping;
 
   return (
     <div className="pt-24 pb-24 min-h-screen bg-background">
@@ -159,7 +168,7 @@ export default function CheckoutPage() {
               <div className="space-y-4 mb-6 py-4 border-y border-border/10 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span>₹{TotalPrice}</span>
+                  <span>₹{cartSubtotal}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Shipping</span>
