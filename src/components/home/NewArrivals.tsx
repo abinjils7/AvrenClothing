@@ -53,9 +53,9 @@ export function NewArrivals() {
   const handleQuickAdd = (e: React.MouseEvent, product: Product) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     const defaultVariant = product.variants?.find(v => v.stock > 0) || product.variants?.[0];
-    
+
     if (defaultVariant) {
       addItem({
         product: product,
@@ -133,12 +133,12 @@ export function NewArrivals() {
                       alt={product.images[0]?.alt || product.name}
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                     />
-                    
-                    <button 
+
+                    <button
                       onClick={(e) => handleQuickAdd(e, product)}
                       className="absolute right-3 bottom-3 lg:bottom-4 lg:left-4 lg:right-4 bg-background/90 backdrop-blur-md text-foreground h-10 w-10 lg:w-auto lg:h-auto lg:py-3 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 font-medium text-sm flex items-center justify-center gap-2 hover:bg-foreground hover:text-background rounded-full lg:rounded-none z-10 border border-border lg:border-none"
                     >
-                      <ShoppingBag className="h-4 w-4" /> 
+                      <ShoppingBag className="h-4 w-4" />
                       <span className="hidden lg:block">Quick Add</span>
                     </button>
                   </div>
