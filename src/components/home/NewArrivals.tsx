@@ -15,7 +15,13 @@ const MOCK_FEATURED: Product[] = [
     description: '280gsm heavyweight cotton t-shirt.', price: 2490, compareAtPrice: 2490,
     category: { _id: 'c1', name: 'T-Shirts', slug: 't-shirts', description: '', image: '' },
     brand: 'AVREN', averageRating: 4.9, numReviews: 87, featured: true, isActive: true,
-    variants: [{ _id: 'v1', size: 'M', color: 'Black', colorHex: '#0a0a0a', stock: 15 }],
+    variants: [
+      { _id: 'v1s', size: 'S', color: 'Black', colorHex: '#0a0a0a', stock: 10 },
+      { _id: 'v1m', size: 'M', color: 'Black', colorHex: '#0a0a0a', stock: 15 },
+      { _id: 'v1l', size: 'L', color: 'Black', colorHex: '#0a0a0a', stock: 12 },
+      { _id: 'v1xl', size: 'XL', color: 'Black', colorHex: '#0a0a0a', stock: 8 },
+      { _id: 'v1xxl', size: 'XXL', color: 'Black', colorHex: '#0a0a0a', stock: 5 },
+    ],
     images: [
       { _id: 'i1', url: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=780&auto=format&fit=crop', isMain: true },
       { _id: 'i1b', url: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=830&auto=format&fit=crop', isMain: false },
@@ -27,7 +33,13 @@ const MOCK_FEATURED: Product[] = [
     category: { _id: 'c2', name: 'Shirts', slug: 'shirts', description: '', image: '' },
     brand: 'AVREN', averageRating: 4.7, numReviews: 34, featured: true, isActive: true,
     discountPercentage: 23,
-    variants: [{ _id: 'v2', size: 'M', color: 'White', colorHex: '#fff', stock: 12 }],
+    variants: [
+      { _id: 'v2s', size: 'S', color: 'White', colorHex: '#fff', stock: 8 },
+      { _id: 'v2m', size: 'M', color: 'White', colorHex: '#fff', stock: 12 },
+      { _id: 'v2l', size: 'L', color: 'White', colorHex: '#fff', stock: 10 },
+      { _id: 'v2xl', size: 'XL', color: 'White', colorHex: '#fff', stock: 6 },
+      { _id: 'v2xxl', size: 'XXL', color: 'White', colorHex: '#fff', stock: 4 },
+    ],
     images: [
       { _id: 'i2', url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=776&auto=format&fit=crop', isMain: true },
       { _id: 'i2b', url: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?q=80&w=774&auto=format&fit=crop', isMain: false },
@@ -39,10 +51,33 @@ const MOCK_FEATURED: Product[] = [
     category: { _id: 'c1', name: 'T-Shirts', slug: 't-shirts', description: '', image: '' },
     brand: 'AVREN', averageRating: 4.6, numReviews: 53, featured: true, isActive: true,
     discountPercentage: 14,
-    variants: [{ _id: 'v3', size: 'M', color: 'Off-White', colorHex: '#f5f0eb', stock: 18 }],
+    variants: [
+      { _id: 'v3s', size: 'S', color: 'Off-White', colorHex: '#f5f0eb', stock: 14 },
+      { _id: 'v3m', size: 'M', color: 'Off-White', colorHex: '#f5f0eb', stock: 18 },
+      { _id: 'v3l', size: 'L', color: 'Off-White', colorHex: '#f5f0eb', stock: 15 },
+      { _id: 'v3xl', size: 'XL', color: 'Off-White', colorHex: '#f5f0eb', stock: 10 },
+      { _id: 'v3xxl', size: 'XXL', color: 'Off-White', colorHex: '#f5f0eb', stock: 7 },
+    ],
     images: [
       { _id: 'i3', url: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?q=80&w=774&auto=format&fit=crop', isMain: true },
       { _id: 'i3b', url: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=764&auto=format&fit=crop', isMain: false },
+    ],
+  },
+  {
+    _id: 'f4', name: 'Premium Leather Loafers', slug: 'premium-leather-loafers',
+    description: 'Handcrafted Italian leather loafers.', price: 12990, compareAtPrice: 15000,
+    category: { _id: 'c3', name: 'Shoes', slug: 'shoes', description: '', image: '' },
+    brand: 'AVREN', averageRating: 4.8, numReviews: 26, featured: true, isActive: true,
+    variants: [
+      { _id: 'v4-6', size: '6', color: 'Tan', colorHex: '#a0522d', stock: 5 },
+      { _id: 'v4-7', size: '7', color: 'Tan', colorHex: '#a0522d', stock: 8 },
+      { _id: 'v4-8', size: '8', color: 'Tan', colorHex: '#a0522d', stock: 12 },
+      { _id: 'v4-9', size: '9', color: 'Tan', colorHex: '#a0522d', stock: 7 },
+      { _id: 'v4-10', size: '10', color: 'Tan', colorHex: '#a0522d', stock: 4 },
+    ],
+    images: [
+      { _id: 'i4', url: 'https://images.unsplash.com/photo-1533274033373-8bc3f208170c?q=80&w=774&auto=format&fit=crop', isMain: true },
+      { _id: 'i4b', url: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=764&auto=format&fit=crop', isMain: false },
     ],
   },
 

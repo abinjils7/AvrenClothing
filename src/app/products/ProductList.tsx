@@ -28,8 +28,11 @@ const MOCK_PRODUCTS: Product[] = [
     price: 8990, compareAtPrice: 8990,
     category: MOCK_CATEGORIES[4], brand: 'Nike',
     variants: [
-      { _id: 'v-s1', size: 'US 9', color: 'White', colorHex: '#FFFFFF', stock: 15 },
-      { _id: 'v-s2', size: 'US 10', color: 'White', colorHex: '#FFFFFF', stock: 10 },
+      { _id: 'v-s1-6', size: '6', color: 'White', colorHex: '#FFFFFF', stock: 5 },
+      { _id: 'v-s1-7', size: '7', color: 'White', colorHex: '#FFFFFF', stock: 8 },
+      { _id: 'v-s1-8', size: '8', color: 'White', colorHex: '#FFFFFF', stock: 15 },
+      { _id: 'v-s1-9', size: '9', color: 'White', colorHex: '#FFFFFF', stock: 10 },
+      { _id: 'v-s1-10', size: '10', color: 'White', colorHex: '#FFFFFF', stock: 4 },
     ],
     images: [
       { _id: 'i-s1', url: '/Af1.png', alt: 'Nike Air Force 1', isMain: true },
@@ -43,8 +46,11 @@ const MOCK_PRODUCTS: Product[] = [
     price: 15990, compareAtPrice: 16500,
     category: MOCK_CATEGORIES[4], brand: 'Jordan',
     variants: [
-      { _id: 'v-s3', size: 'US 9', color: 'Bred', colorHex: '#ff0000', stock: 5 },
-      { _id: 'v-s4', size: 'US 11', color: 'Bred', colorHex: '#ff0000', stock: 2 },
+      { _id: 'v-s3-6', size: '6', color: 'Bred', colorHex: '#ff0000', stock: 3 },
+      { _id: 'v-s3-7', size: '7', color: 'Bred', colorHex: '#ff0000', stock: 5 },
+      { _id: 'v-s3-8', size: '8', color: 'Bred', colorHex: '#ff0000', stock: 8 },
+      { _id: 'v-s3-9', size: '9', color: 'Bred', colorHex: '#ff0000', stock: 5 },
+      { _id: 'v-s3-10', size: '10', color: 'Bred', colorHex: '#ff0000', stock: 2 },
     ],
     images: [
       { _id: 'i-s2', url: '/Aj1.png', alt: 'Air Jordan 1 High', isMain: true },
@@ -58,8 +64,11 @@ const MOCK_PRODUCTS: Product[] = [
     price: 7990, compareAtPrice: 8500,
     category: MOCK_CATEGORIES[4], brand: 'Adidas',
     variants: [
-      { _id: 'v-s5', size: 'US 8', color: 'White/Black', colorHex: '#FFFFFF', stock: 20 },
-      { _id: 'v-s6', size: 'US 9.5', color: 'White/Black', colorHex: '#FFFFFF', stock: 12 },
+      { _id: 'v-s5-6', size: '6', color: 'White/Black', colorHex: '#FFFFFF', stock: 10 },
+      { _id: 'v-s5-7', size: '7', color: 'White/Black', colorHex: '#FFFFFF', stock: 15 },
+      { _id: 'v-s5-8', size: '8', color: 'White/Black', colorHex: '#FFFFFF', stock: 20 },
+      { _id: 'v-s5-9', size: '9', color: 'White/Black', colorHex: '#FFFFFF', stock: 12 },
+      { _id: 'v-s5-10', size: '10', color: 'White/Black', colorHex: '#FFFFFF', stock: 8 },
     ],
     images: [
       { _id: 'i-s3', url: '/superstar.png', alt: 'Adidas Superstar', isMain: true },
@@ -73,8 +82,11 @@ const MOCK_PRODUCTS: Product[] = [
     price: 6590, compareAtPrice: 6590,
     category: MOCK_CATEGORIES[4], brand: 'Converse',
     variants: [
-      { _id: 'v-s7', size: 'US 10', color: 'Parchment', colorHex: '#f1e8d9', stock: 30 },
-      { _id: 'v-s8', size: 'US 11', color: 'Parchment', colorHex: '#f1e8d9', stock: 22 },
+      { _id: 'v-s7-6', size: '6', color: 'Parchment', colorHex: '#f1e8d9', stock: 15 },
+      { _id: 'v-s7-7', size: '7', color: 'Parchment', colorHex: '#f1e8d9', stock: 20 },
+      { _id: 'v-s7-8', size: '8', color: 'Parchment', colorHex: '#f1e8d9', stock: 30 },
+      { _id: 'v-s7-9', size: '9', color: 'Parchment', colorHex: '#f1e8d9', stock: 25 },
+      { _id: 'v-s7-10', size: '10', color: 'Parchment', colorHex: '#f1e8d9', stock: 22 },
     ],
     images: [
       { _id: 'i-s4', url: '/converce.png', alt: 'Converse Chuck 70', isMain: true },
@@ -88,9 +100,14 @@ const MOCK_PRODUCTS: Product[] = [
     price: 4990, compareAtPrice: 6500,
     category: MOCK_CATEGORIES[0], brand: 'AVREN',
     variants: [
-      { _id: 'v1', size: 'M', color: 'White', colorHex: '#FFFFFF', stock: 12 },
-      { _id: 'v2', size: 'L', color: 'White', colorHex: '#FFFFFF', stock: 8 },
-      { _id: 'v3', size: 'M', color: 'Navy', colorHex: '#1a1a2e', stock: 5 },
+      { _id: 'v1s', size: 'S', color: 'White', colorHex: '#FFFFFF', stock: 10 },
+      { _id: 'v1m', size: 'M', color: 'White', colorHex: '#FFFFFF', stock: 12 },
+      { _id: 'v1l', size: 'L', color: 'White', colorHex: '#FFFFFF', stock: 8 },
+      { _id: 'v1xl', size: 'XL', color: 'White', colorHex: '#FFFFFF', stock: 5 },
+      { _id: 'v1xxl', size: 'XXL', color: 'White', colorHex: '#FFFFFF', stock: 3 },
+      { _id: 'v3s', size: 'S', color: 'Navy', colorHex: '#1a1a2e', stock: 4 },
+      { _id: 'v3m', size: 'M', color: 'Navy', colorHex: '#1a1a2e', stock: 5 },
+      { _id: 'v3l', size: 'L', color: 'Navy', colorHex: '#1a1a2e', stock: 3 },
     ],
     images: [
       { _id: 'i1', url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=776&auto=format&fit=crop', alt: 'Oxford Shirt', isMain: true },
@@ -108,6 +125,8 @@ const MOCK_PRODUCTS: Product[] = [
       { _id: 'v4', size: 'S', color: 'Black', colorHex: '#0a0a0a', stock: 20 },
       { _id: 'v5', size: 'M', color: 'Black', colorHex: '#0a0a0a', stock: 15 },
       { _id: 'v6', size: 'L', color: 'Black', colorHex: '#0a0a0a', stock: 10 },
+      { _id: 'v6xl', size: 'XL', color: 'Black', colorHex: '#0a0a0a', stock: 8 },
+      { _id: 'v6xxl', size: 'XXL', color: 'Black', colorHex: '#0a0a0a', stock: 5 },
     ],
     images: [
       { _id: 'i2', url: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=780&auto=format&fit=crop', alt: 'Black Tee', isMain: true },
@@ -122,8 +141,11 @@ const MOCK_PRODUCTS: Product[] = [
     price: 5990, compareAtPrice: 7500,
     category: MOCK_CATEGORIES[0], brand: 'AVREN',
     variants: [
+      { _id: 'v7s', size: 'S', color: 'Beige', colorHex: '#d4c5a9', stock: 5 },
       { _id: 'v7', size: 'M', color: 'Beige', colorHex: '#d4c5a9', stock: 6 },
       { _id: 'v8', size: 'L', color: 'Beige', colorHex: '#d4c5a9', stock: 4 },
+      { _id: 'v8xl', size: 'XL', color: 'Beige', colorHex: '#d4c5a9', stock: 3 },
+      { _id: 'v8xxl', size: 'XXL', color: 'Beige', colorHex: '#d4c5a9', stock: 2 },
     ],
     images: [
       { _id: 'i3', url: 'https://images.unsplash.com/photo-1598032895397-b9472444bf93?q=80&w=725&auto=format&fit=crop', alt: 'Linen Shirt', isMain: true },
@@ -138,9 +160,11 @@ const MOCK_PRODUCTS: Product[] = [
     price: 2990, compareAtPrice: 3500,
     category: MOCK_CATEGORIES[1], brand: 'AVREN',
     variants: [
+      { _id: 'v9s', size: 'S', color: 'Off-White', colorHex: '#f5f0eb', stock: 10 },
       { _id: 'v9', size: 'M', color: 'Off-White', colorHex: '#f5f0eb', stock: 18 },
       { _id: 'v10', size: 'L', color: 'Off-White', colorHex: '#f5f0eb', stock: 12 },
       { _id: 'v11', size: 'XL', color: 'Off-White', colorHex: '#f5f0eb', stock: 7 },
+      { _id: 'v11xxl', size: 'XXL', color: 'Off-White', colorHex: '#f5f0eb', stock: 4 },
     ],
     images: [
       { _id: 'i4', url: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?q=80&w=774&auto=format&fit=crop', alt: 'Graphic Tee', isMain: true },
@@ -158,6 +182,8 @@ const MOCK_PRODUCTS: Product[] = [
       { _id: 'v12', size: 'S', color: 'Navy', colorHex: '#0d1b2a', stock: 9 },
       { _id: 'v13', size: 'M', color: 'Navy', colorHex: '#0d1b2a', stock: 14 },
       { _id: 'v14', size: 'L', color: 'Navy', colorHex: '#0d1b2a', stock: 6 },
+      { _id: 'v14xl', size: 'XL', color: 'Navy', colorHex: '#0d1b2a', stock: 4 },
+      { _id: 'v14xxl', size: 'XXL', color: 'Navy', colorHex: '#0d1b2a', stock: 2 },
     ],
     images: [
       { _id: 'i5', url: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=770&auto=format&fit=crop', alt: 'Navy Dress Shirt', isMain: true },
@@ -172,9 +198,12 @@ const MOCK_PRODUCTS: Product[] = [
     price: 1990, compareAtPrice: 2500,
     category: MOCK_CATEGORIES[1], brand: 'AVREN',
     variants: [
+      { _id: 'v15s', size: 'S', color: 'Sage', colorHex: '#9caf88', stock: 10 },
       { _id: 'v15', size: 'M', color: 'Sage', colorHex: '#9caf88', stock: 22 },
       { _id: 'v16', size: 'L', color: 'Sage', colorHex: '#9caf88', stock: 16 },
+      { _id: 'v17s', size: 'S', color: 'Clay', colorHex: '#b85c38', stock: 5 },
       { _id: 'v17', size: 'M', color: 'Clay', colorHex: '#b85c38', stock: 11 },
+      { _id: 'v17l', size: 'L', color: 'Clay', colorHex: '#b85c38', stock: 8 },
     ],
     images: [
       { _id: 'i6', url: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=654&auto=format&fit=crop', alt: 'Pocket Tee', isMain: true },
@@ -189,9 +218,11 @@ const MOCK_PRODUCTS: Product[] = [
     price: 3490, compareAtPrice: 3490,
     category: MOCK_CATEGORIES[1], brand: 'AVREN',
     variants: [
+      { _id: 'v20s', size: 'S', color: 'Charcoal', colorHex: '#36454F', stock: 8 },
       { _id: 'v20', size: 'M', color: 'Charcoal', colorHex: '#36454F', stock: 14 },
       { _id: 'v21', size: 'L', color: 'Charcoal', colorHex: '#36454F', stock: 9 },
       { _id: 'v22', size: 'XL', color: 'Charcoal', colorHex: '#36454F', stock: 4 },
+      { _id: 'v22xxl', size: 'XXL', color: 'Charcoal', colorHex: '#36454F', stock: 2 },
     ],
     images: [
       { _id: 'i8', url: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=774&auto=format&fit=crop', alt: 'Acid Wash Tee', isMain: true },
