@@ -436,9 +436,10 @@ export default function ProductList() {
                     
                     <button 
                       onClick={(e) => handleQuickAdd(e, product)}
-                      className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-sm text-foreground py-3 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 font-medium text-sm flex items-center justify-center gap-2 hover:bg-foreground hover:text-background rounded-sm z-10"
+                      className="absolute right-3 bottom-3 lg:bottom-4 lg:left-4 lg:right-4 bg-background/90 backdrop-blur-md text-foreground h-10 w-10 lg:w-auto lg:h-auto lg:py-3 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 font-medium text-sm flex items-center justify-center gap-2 hover:bg-foreground hover:text-background rounded-full lg:rounded-none z-10 border border-border lg:border-none"
                     >
-                      <ShoppingBag className="h-4 w-4" /> Quick Add
+                      <ShoppingBag className="h-4 w-4" /> 
+                      <span className="hidden lg:block">Quick Add</span>
                     </button>
                   </div>
                   <div className="space-y-2 flex-1 flex flex-col justify-between">
